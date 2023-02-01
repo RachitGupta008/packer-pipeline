@@ -30,6 +30,10 @@ jobs:
         id: validate
         run: "packer validate ./image.pkr.hcl"
         
+      - name: BUILD
+        id: build
+        run: "packer build -debug -timestamp-ui ./image.pkr.hcl"
+        
       - name: List Directory
         run: "ls -altr"
         
