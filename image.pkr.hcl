@@ -28,7 +28,6 @@ build {
 
    provisioner "shell" {
 
-    #script          = "./gpu-image-rhel7-init-script.sh"
     script          = "./validate.sh"
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E {{ .Path }}"
   }
