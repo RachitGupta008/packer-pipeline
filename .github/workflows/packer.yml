@@ -52,7 +52,7 @@ jobs:
         
       - name: List Summanry
         run: |
-              IMG_NAME=$(cat packerlog.txt | sed -n -e "s/^.*A disk image was created //p")
+              IMG_NAME=$(cat packerlog.txt | sed -n -e "s/^.*A disk image was created: //p")
               echo $IMG_NAME
               echo "Image Created $IMG_NAME" >> $GITHUB_STEP_SUMMARY
         
