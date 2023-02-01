@@ -16,6 +16,9 @@ jobs:
         id: setup
         with:
           version: "1.8.3" # or `latest`
+      
+      - name: Configure Packer
+        run: "echo 'PACKER_LOG=1' >> $GITHUB_ENV"
 
       - name: Run `packer init`
         id: init
