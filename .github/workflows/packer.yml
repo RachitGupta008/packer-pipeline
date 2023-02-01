@@ -18,7 +18,9 @@ jobs:
           version: "1.8.3" # or `latest`
       
       - name: Configure Packer
-        run: "echo 'PACKER_LOG=1' >> $GITHUB_ENV"
+        run: |
+              echo 'PACKER_LOG=1' >> $GITHUB_ENV
+              echo 'PACKER_LOG_PATH="packerlog.txt"' >> $GITHUB_ENV
 
       - name: Run `packer init`
         id: init
@@ -28,5 +30,11 @@ jobs:
         id: validate
         run: "packer validate ./image.pkr.hcl"
         
-      - name: Configure Packer
+      - name: List Directory
         run: "ls -altr"
+        
+      - name: Step 3 - Use the Upload Artifact GitHub Action
+        uses: actions/upload-artifact@v2
+        with: 
+          name: logs
+          path: ./packerlog.txt 
