@@ -11,7 +11,7 @@ jobs:
       -  name: Checkout
          uses: actions/checkout@v3
          with: 
-            repository: 'RachitGupta008/packer-cred/'
+            repository: RachitGupta008/packer-cred
             path: '/packer-creds/'
          
          
