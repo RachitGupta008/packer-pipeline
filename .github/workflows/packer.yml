@@ -40,6 +40,7 @@ jobs:
               ls -altr
               echo 'PACKER_LOG=1' >> $GITHUB_ENV
               echo 'PACKER_LOG_PATH=${{ inputs.build-path }}/packer-log.txt' >> $GITHUB_ENV
+              mkdir ${{ inputs.build-path }}
               ls /home/runner/work/packer-pipeline/ -altr
 
       - name: Run `packer init`
