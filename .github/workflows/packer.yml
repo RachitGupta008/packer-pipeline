@@ -1,7 +1,11 @@
 name: packer
 
 on:
-  - push
+  workflow_call:
+    inputs:
+        build-path:
+          required: true
+          type: string
 
 jobs:
   packer:
@@ -35,7 +39,7 @@ jobs:
         run: |
               ls -altr
               echo 'PACKER_LOG=1' >> $GITHUB_ENV
-              echo 'PACKER_LOG_PATH=packer-log.txt' >> $GITHUB_ENV
+              echo 'PACKER_LOG_PATH=${{ inputs.build-path }}/packer-log.txt' >> $GITHUB_ENV
               ls /home/runner/work/packer-pipeline/ -altr
 
       - name: Run `packer init`
@@ -52,6 +56,8 @@ jobs:
         
       - name: List Summanry
         run: |
+              ls
+              cd ${{ inputs.build-path }}
               IMG_NAME=$(cat packer-log.txt | sed -n -e "s/^.* A disk image was created: //p")
               echo $IMG_NAME
               echo "Image Created $IMG_NAME" >> $GITHUB_STEP_SUMMARY
