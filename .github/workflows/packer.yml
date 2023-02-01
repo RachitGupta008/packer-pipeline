@@ -8,8 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     name: Run Packer
     steps:
+      -  name: Checkout
+         uses: actions/checkout@v3
+         with: 
+            repository: 'RachitGupta008/packer-cred/'
+            path: '/packer-creds/'
+         
+         
       - name: Checkout
         uses: actions/checkout@v3
+        with: 
+            path: '/packer-repo/'
 
       - name: Setup `packer`
         uses: hashicorp/setup-packer@main
