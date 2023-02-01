@@ -1,3 +1,9 @@
 name: Call Packer
-on: 
+on: [push]
+
+jobs:
+  packer-build:
+          uses: RachitGupta008/packer-pipeline/.github/workflows/packer.yml@main
+          with: 
+              build-path: 'hello'
   
