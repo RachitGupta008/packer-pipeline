@@ -22,6 +22,7 @@ jobs:
       - name: Configure Packer
         run: |
               ls -altr
+              echo "hello"
               cp burner-racgupta1-a7fbf41ed076.json /home/runner/work/packer-pipeline/burner-racgupta1-a7fbf41ed076.json
           
          
