@@ -5,7 +5,7 @@ source "googlecompute" "packer-image" {
   account_file = "../burner-racgupta1-a7fbf41ed076.json"
   ssh_timeout = "2m"
   # zone                = "us-central1-a"
-  zone              = "europe-west3-b"
+  zone              = "us-central1-a"
   image_description = "Created with Packer from Cloudbuild"
   ssh_username      = "racgupta1"
   # tags                = ["packer", "packer-allow-ssh"]
