@@ -16,17 +16,17 @@ jobs:
         run: |
             echo "hello"
             
-      -  name: Checkout
-         uses: actions/checkout@v3
-         with: 
-            repository: RachitGupta008/packer-cred
-            token: ${{ secrets.CRED_TOKEN }}
+     # -  name: Checkout
+      #   uses: actions/checkout@v3
+      #   with: 
+      #      repository: RachitGupta008/packer-cred
+      #      token: ${{ secrets.CRED_TOKEN }}
       
       - name: Configure Packer
         run: |
               ls -altr
               echo "hello"
-              cp burner-racgupta1-a7fbf41ed076.json /home/runner/work/packer-pipeline/burner-racgupta1-a7fbf41ed076.json
+              #cp burner-racgupta1-a7fbf41ed076.json /home/runner/work/packer-pipeline/burner-racgupta1-a7fbf41ed076.json
           
          
        
@@ -43,9 +43,11 @@ jobs:
         run: |
               ls -altr
               echo 'PACKER_LOG=1' >> $GITHUB_ENV
-              echo 'PACKER_LOG_PATH=${{ inputs.build-path }}/packer-log.txt' >> $GITHUB_ENV
+              echo 'PACKER_LOG_PATH=${{ inputs.build-path }}/packer-output.txt' >> $GITHUB_ENV
               mkdir ${{ inputs.build-path }}
               ls /home/runner/work/packer-pipeline/ -altr
+      - name: Packer fmt
+        run: "packer fmt -recursive ."
 
       - name: Run `packer init`
         id: init
@@ -55,9 +57,9 @@ jobs:
         id: validate
         run: "packer validate ./image.pkr.hcl"
         
-      - name: BUILD
-        id: build
-        run: "packer build -debug -timestamp-ui ./image.pkr.hcl"
+      #- name: BUILD
+      #  id: build
+      #  run: "packer build -debug -timestamp-ui ./image.pkr.hcl"
         
       - name: List Summanry
         run: |
@@ -71,4 +73,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with: 
           name: logs
-          path: ./packerlog.txt 
+          path: ${{ inputs.build-path }}/packer-output.txt 
