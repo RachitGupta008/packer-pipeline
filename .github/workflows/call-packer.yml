@@ -1,12 +1,12 @@
 name: Call Packer
 on: 
   push:
-    paths: "*.hcl"
+    paths: "gce/*.hcl"
 
 jobs:
   packer-build:
           uses: RachitGupta008/packer-pipeline/.github/workflows/packer.yml@main
           with: 
-              build-path: 'hello'
+              build-path: 'gce'
           secrets: inherit
   
