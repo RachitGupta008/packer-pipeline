@@ -12,7 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Run Packer
     steps:
-      
+      - name: Configure Packer
+        run: |
+            echo "hello"
+            
       -  name: Checkout
          uses: actions/checkout@v3
          with: 
