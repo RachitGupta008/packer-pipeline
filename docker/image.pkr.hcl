@@ -32,5 +32,6 @@ build {
         tag = ["0.6"]
       }
     post-processor "docker-push" {}
+     
   }
 }
