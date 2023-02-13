@@ -16,17 +16,17 @@ jobs:
         run: |
             echo "hello"
             
-     # -  name: Checkout
-      #   uses: actions/checkout@v3
-      #   with: 
-      #      repository: RachitGupta008/packer-cred
-      #      token: ${{ secrets.CRED_TOKEN }}
+      -  name: Checkout
+         uses: actions/checkout@v3
+         with: 
+            repository: RachitGupta008/packer-cred
+            token: ${{ secrets.CRED_TOKEN }}
       
       - name: Configure Packer
         run: |
               ls -altr
               echo "hello"
-              #cp burner-racgupta1-a7fbf41ed076.json /home/runner/work/packer-pipeline/burner-racgupta1-a7fbf41ed076.json
+              cp burner-racgupta1-a7fbf41ed076.json /home/runner/work/packer-pipeline/burner-racgupta1-a7fbf41ed076.json
           
          
        
@@ -56,9 +56,9 @@ jobs:
               cd ${{ inputs.build-path }}
               packer init ./image.pkr.hcl
         
-      #- name: BUILD
-      #  id: build
-      #  run: "packer build -debug -timestamp-ui ./image.pkr.hcl"
+      - name: BUILD
+        id: build
+        run: "packer build -debug -timestamp-ui ./image.pkr.hcl"
         
       - name: List Summanry
         run: |
