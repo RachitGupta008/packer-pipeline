@@ -53,12 +53,14 @@ jobs:
       - name: Run `packer init`
         id: init
         run: |
+              ls -altr
               cd ${{ inputs.build-path }}
               packer init ./image.pkr.hcl
         
       - name: BUILD
         id: build
         run: |
+              ls -altr
               cd ${{ inputs.build-path }}
               "packer build -debug -timestamp-ui ./image.pkr.hcl"
                
