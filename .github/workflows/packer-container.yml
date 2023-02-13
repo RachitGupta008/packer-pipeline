@@ -43,8 +43,10 @@ jobs:
 
       - name: 'Use gcloud CLI'
         run: |
-               gcloud auth list
-               gcloud auth configure-docker
+              gcloud config set account `test-packer@burner-racgupta1.iam.gserviceaccount.com`
+              gcloud auth list
+              cat /home/runner/.docker/config.json
+              
       - name: Configure Packer
         run: |
               ls -altr
