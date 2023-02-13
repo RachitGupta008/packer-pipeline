@@ -32,8 +32,6 @@ build {
         tag = ["0.6"]
       }
     post-processor "docker-push" {
-      login_username = "racgupta1"
-      login_password = "Thisis@1122"
     }
   }
 }
