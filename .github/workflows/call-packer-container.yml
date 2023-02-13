@@ -1,0 +1,12 @@
+name: Call PackerCo
+on: 
+  push:
+    paths: "docker/*.hcl"
+
+jobs:
+  packer-build:
+          uses: RachitGupta008/packer-pipeline/.github/workflows/packer-container.yml@main
+          with: 
+              build-path: 'docker'
+          secrets: inherit
+  
