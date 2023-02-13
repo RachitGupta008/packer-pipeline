@@ -35,6 +35,6 @@ build {
         repository =  "your-repo/demo"
         tag = ["0.6"]
       }
-    post-processor "docker-push" {}
+    #post-processor "docker-push" {}
   }
 }
