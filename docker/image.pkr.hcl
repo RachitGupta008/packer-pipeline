@@ -31,7 +31,6 @@ build {
         repository =  "gcr.io/burner-racgupta1/demo"
         tag = ["0.6"]
       }
-    post-processor "docker-push" {
-    }
+
   }
 }
