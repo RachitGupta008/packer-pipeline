@@ -42,7 +42,9 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v1'
 
       - name: 'Use gcloud CLI'
-        run: 'gcloud auth list'
+        run: |
+              'gcloud auth list'
+               gcloud auth configure-docker
       - name: Configure Packer
         run: |
               ls -altr
