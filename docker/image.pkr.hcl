@@ -26,7 +26,6 @@ build {
       "echo \"FOO is $FOO\" > example.txt",
     ]
   }
-
    post-processors {
     post-processor "docker-tag" {
         repository =  "gcr.io/burner-racgupta1/demo"
