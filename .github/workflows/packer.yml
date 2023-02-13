@@ -58,7 +58,10 @@ jobs:
         
       - name: BUILD
         id: build
-        run: "packer build -debug -timestamp-ui ./image.pkr.hcl"
+        run: |
+              cd ${{ inputs.build-path }}
+              "packer build -debug -timestamp-ui ./image.pkr.hcl"
+               
         
       - name: List Summanry
         run: |
