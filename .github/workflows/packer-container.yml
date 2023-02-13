@@ -43,7 +43,7 @@ jobs:
 
       - name: 'Use gcloud CLI'
         run: |
-              'gcloud auth list'
+               gcloud auth list
                gcloud auth configure-docker
       - name: Configure Packer
         run: |
