@@ -20,6 +20,7 @@
         "WORKDIR /app",
         "CMD python app.py"
       ]
+      
     }
   ]
 }
