@@ -62,7 +62,8 @@ jobs:
         run: |
               ls -altr
               cd ${{ inputs.build-path }}
-              "packer build -debug -timestamp-ui ./image.pkr.hcl"
+              ls -altr
+              packer build -debug -timestamp-ui ./image.pkr.hcl
                
         
       - name: List Summanry
