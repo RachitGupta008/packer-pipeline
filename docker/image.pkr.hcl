@@ -7,29 +7,34 @@ packer {
   }
 }
 
+source "docker" "ubuntu" {
+  image  = "ubuntu:xenial"
+  commit = true
+}
+
 build {
-  "builders": [
-    {
-      "type": "docker",
-      "image": "base_image:latest",
-      "commit": true
-    }
+  name    = "docker-example"
+  sources = [
+    "source.docker.ubuntu"
   ],
-  "provisioners": [
-    {
-      "type": "file",
-      "source": "./app",
-      "destination": "/app"
-    },
-    {
-      "type": "docker-command",
-      "inline": [
-        "RUN apt-get update",
-        "RUN apt-get install -y python",
-        "WORKDIR /app",
-        "CMD python app.py"
-      ]
-      
-    }
-  ]
+  provisioner "shell" {
+    environment_vars = [
+      "FOO=hello world",
+    ]
+    inline = [
+      "echo Installing Redis",
+      "sleep 30",
+      "sudo apt-get update",
+      "sudo apt-get install -y redis-server",
+      "echo \"FOO is $FOO\" > example.txt",
+    ]
+  }
+
+   post-processors {
+    post-processor "docker-tag" {
+        repository =  "your-repo/demo"
+        tag = ["0.6"]
+      }
+    post-processor "docker-push" {}
+  }
 }
