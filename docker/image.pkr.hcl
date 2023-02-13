@@ -16,7 +16,7 @@ build {
   name    = "docker-example"
   sources = [
     "source.docker.ubuntu"
-  ],
+  ]
   provisioner "shell" {
     environment_vars = [
       "FOO=hello world",
