@@ -13,16 +13,7 @@ jobs:
     name: Run Packer
     steps:
     
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v1'
-        with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
-
-      - name: 'Use gcloud CLI'
-        run: 'gcloud auth list'
     
       
       - name: Configure Packer
@@ -41,7 +32,17 @@ jobs:
         id: setup
         with:
           version: "latest" # or `latest`
-      
+        
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud auth list'
       - name: Configure Packer
         run: |
               ls -altr
