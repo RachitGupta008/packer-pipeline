@@ -72,6 +72,7 @@ jobs:
               cd ${{ inputs.build-path }}
               ls -altr
               packer build -debug -timestamp-ui ./image.pkr.hcl
+              docker push gcr.io/burner-racgupta1/demo:0.6
                
         
       - name: List Summanry
