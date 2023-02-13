@@ -1,1 +1,85 @@
+name: packer
 
+on:
+  workflow_call:
+    inputs:
+        build-path:
+          required: true
+          type: string
+
+jobs:
+  packer:
+    runs-on: ubuntu-latest
+    name: Run Packer
+    steps:
+    
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud auth list'
+    
+      
+      - name: Configure Packer
+        run: |
+              ls -altr
+              echo "hello"
+              #cp burner-racgupta1-a7fbf41ed076.json /home/runner/work/packer-pipeline/burner-racgupta1-a7fbf41ed076.json
+          
+         
+       
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup `packer`
+        uses: hashicorp/setup-packer@main
+        id: setup
+        with:
+          version: "latest" # or `latest`
+      
+      - name: Configure Packer
+        run: |
+              ls -altr
+              echo "PACKER_LOG=1" >> $GITHUB_ENV
+              echo "PACKER_LOG_PATH=packer-output.txt" >> $GITHUB_ENV
+              ls /home/runner/work/packer-pipeline/ -altr
+      - name: Packer fmt
+        run: |
+              cd ${{ inputs.build-path }}
+              packer fmt -recursive .
+
+      - name: Run `packer init`
+        id: init
+        run: |
+              ls -altr
+              cd ${{ inputs.build-path }}
+              packer init ./image.pkr.hcl
+        
+      - name: BUILD
+        id: build
+        run: |
+              ls -altr
+              cd ${{ inputs.build-path }}
+              ls -altr
+              packer build -debug -timestamp-ui ./image.pkr.hcl
+               
+        
+      - name: List Summanry
+        run: |
+              cd ${{ inputs.build-path }}
+              ls -altr
+              
+              IMG_NAME=$(cat packer-log.txt | sed -n -e "s/^.* A disk image was created: //p")
+              echo $IMG_NAME
+              echo "Image Created $IMG_NAME" >> $GITHUB_STEP_SUMMARY
+        
+      - name: Step 3 - Use the Upload Artifact GitHub Action
+        uses: actions/upload-artifact@v2
+        with: 
+          name: logs
+          path: ${{ inputs.build-path }}/packer-output.txt 
