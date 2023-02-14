@@ -11,8 +11,6 @@ source "googlecompute" "packer-image" {
   tags       = ["allow-packer-ssh"]
   subnetwork = "packer-network"
   on_host_maintenance = "TERMINATE"
-  
-  on_cancel: "terminate-instance"
 }
 
 
