@@ -12,22 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Run Packer
     steps:
-      - name: Configure Packer
-        run: |
-            echo "hello"
-            
-      -  name: Checkout
-         uses: actions/checkout@v3
-         with: 
-            repository: RachitGupta008/packer-cred
-            token: ${{ secrets.CRED_TOKEN }}
-      
-      - name: Configure Packer
-        run: |
-              ls -altr
-              echo "hello"
-              cp burner-racgupta1-a7fbf41ed076.json /home/runner/work/packer-pipeline/burner-racgupta1-a7fbf41ed076.json
-          
+
          
        
       - name: Checkout
@@ -38,6 +23,18 @@ jobs:
         id: setup
         with:
           version: "latest" # or `latest`
+          
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+
+      - name: 'Use gcloud CLI'
+        run: |
+              gcloud auth list
       
       - name: Configure Packer
         run: |
