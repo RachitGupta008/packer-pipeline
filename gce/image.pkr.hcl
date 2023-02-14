@@ -28,5 +28,6 @@ build {
    provisioner "shell" {
     script          = "./validate.sh"
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E {{ .Path }}"
-    }
+    
+   }
 }
