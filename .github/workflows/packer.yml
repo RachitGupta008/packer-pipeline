@@ -75,7 +75,7 @@ jobs:
         if: cancelled() # Check if the job has been cancelled
         run: |
               cd ${{ inputs.build-path }}
-              ZONE=$(cat packer-log.txt | sed 's/.*Instance: \([^ ]*\).*/\1/'")
+              ZONE=$(cat packer-log.txt | sed 's/.*Instance: \([^ ]*\).*/\1/')
               VM_NAME=$(cat packer-log.txt | sed -n -e "s/^.*started in //p")
               echo $VM_NAME
               echo $ZONE
