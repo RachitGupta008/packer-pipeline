@@ -1,7 +1,7 @@
 name: Call Packer
 on: 
   push:
-    paths: "gce/*.hcl"
+    paths: "gce/*"
 
 jobs:
   packer-build:
