@@ -19,7 +19,6 @@ source "googlecompute" "packer-image" {
 
 build {
   sources = ["sources.googlecompute.packer-image"]
- 
   # Copy GPU Image init script to the Packer VM
   provisioner "file" {
     direction = "upload"
