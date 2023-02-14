@@ -5,7 +5,7 @@ on:
 
 jobs:
   packer-build:
-          uses: RachitGupta008/packer-pipeline/.github/workflows/packer-container.yml@main
+          uses: RachitGupta008/packer-pipeline/.github/workflows/packer.yml@main
           with: 
               build-path: 'gce'
           secrets: inherit
