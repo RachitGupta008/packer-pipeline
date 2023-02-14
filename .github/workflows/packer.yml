@@ -71,7 +71,15 @@ jobs:
               IMG_NAME=$(cat packer-log.txt | sed -n -e "s/^.* A disk image was created: //p")
               echo $IMG_NAME
               echo "Image Created $IMG_NAME" >> $GITHUB_STEP_SUMMARY
-        
+      - name: Cleanup
+        if: cancelled() # Check if the job has been cancelled
+        run: |
+              cd ${{ inputs.build-path }}
+              ZONE=$(cat packer-log.txt | sed 's/.*Instance: \([^ ]*\).*/\1/'")
+              VM_NAME=$(cat packer-log.txt | sed -n -e "s/^.*started in //p")
+              echo $VM_NAME
+              echo $ZONE
+              
       - name: Step 3 - Use the Upload Artifact GitHub Action
         uses: actions/upload-artifact@v2
         with: 
