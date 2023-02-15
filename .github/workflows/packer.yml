@@ -80,7 +80,7 @@ jobs:
               VM_NAME=$(cat packer-output.txt | sed -n 's/.*Instance: \([^ ]*\).*/\1/p')
               ZONE_ID=$(cat packer-output.txt | sed -n -e "s/^.*Loading zone: //p")
               echo $VM_NAME
-              echo $ZONE_ID
+              ZONE_ID=echo $ZONE_ID
               gcloud config set compute/zone $ZONE_ID
               echo GCP_PROJECT
               gcloud compute instances delete $VM_NAME --quiet
