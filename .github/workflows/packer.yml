@@ -9,7 +9,7 @@ on:
 
 jobs:
   packer:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     name: Run Packer
     steps:
 
