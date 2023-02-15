@@ -80,8 +80,9 @@ jobs:
               ZONE_ID=$(cat packer-output.txt | sed -n 's/^.*started in //p')
               echo $VM_NAME
               echo $ZONE_ID
-              gcloud compute instances delete $VM_NAME --zone=$ZONE_ID --quiet
-              gcloud compute disks delete $VM_NAME --zone="$ZONE_ID" --quiet
+              echo GCP_PROJECT
+              gcloud compute instances delete $VM_NAME --project=$GCP_PROJECT --zone=$ZONE_ID --quiet
+              gcloud compute disks delete $VM_NAME --project=$GCP_PROJECT --zone="$ZONE_ID" --quiet
               
       - name: Step 3 - Use the Upload Artifact GitHub Action
         uses: actions/upload-artifact@v2
