@@ -78,7 +78,7 @@ jobs:
               cd ${{ inputs.build-path }}
               ls -altr
               VM_NAME=$(cat packer-output.txt | sed -n 's/.*Instance: \([^ ]*\).*/\1/p')
-              ZONE_ID=$(cat packer-output.txt | sed -n 's/^.*started in /\1/p')
+              ZONE_ID=$(cat packer-output.txt | sed -n 's/^.*started in //p')
               ZONE_ID=\"${ZONE_ID}\"
               echo $VM_NAME
               echo $ZONE_ID
