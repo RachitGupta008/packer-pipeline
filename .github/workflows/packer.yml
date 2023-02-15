@@ -9,7 +9,7 @@ on:
 
 jobs:
   packer:
-    runs-on: ubuntu-latest
+    runs-on: debian-latest
     name: Run Packer
     steps:
 
@@ -34,6 +34,7 @@ jobs:
 
       - name: 'Use gcloud CLI'
         run: |
+              gcloud version
               gcloud auth list
       
       - name: Configure Packer
