@@ -68,7 +68,7 @@ jobs:
               cd ${{ inputs.build-path }}
               ls -altr
               
-              IMG_NAME=$(cat packer-log.txt | sed -n -e "s/^.* A disk image was created: //p")
+              IMG_NAME=$(cat packer-output.txt | sed -n -e "s/^.* A disk image was created: //p")
               echo $IMG_NAME
               echo "Image Created $IMG_NAME" >> $GITHUB_STEP_SUMMARY
       - name: Cleanup
@@ -76,8 +76,8 @@ jobs:
         run: |
               cd ${{ inputs.build-path }}
               ls -altr
-              ZONE=$(cat packer-log.txt | sed 's/.*Instance: \([^ ]*\).*/\1/')
-              VM_NAME=$(cat packer-log.txt | sed -n -e "s/^.*started in //p")
+              ZONE=$(cat packer-output.txt | sed 's/.*Instance: \([^ ]*\).*/\1/')
+              VM_NAME=$(cat packer-output.txt | sed -n -e "s/^.*started in //p")
               echo $VM_NAME
               echo $ZONE
               
