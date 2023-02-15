@@ -77,15 +77,11 @@ jobs:
               cd ${{ inputs.build-path }}
               ls -altr
               VM_NAME=$(cat packer-output.txt | sed -n 's/.*Instance: \([^ ]*\).*/\1/p')
-              ZONE=$(cat packer-output.txt | sed -n 's/^.*started in //p')
+              ZONE_ID=$(cat packer-output.txt | sed -n 's/^.*started in //p')
               echo $VM_NAME
-              echo $ZONE
-              REGION=${ZONE%-*}
-              ZONE=${ZONE#*-}
-              ZONE="${REGION}-${ZONE}"
-              echo $ZONE
-              gcloud compute instances delete $VM_NAME --zone=$ZONE --quiet
-              gcloud compute disks delete $VM_NAME --zone="${ZONE}" --quiet
+              echo $ZONE_ID
+              gcloud compute instances delete $VM_NAME --zone=$ZONE_ID --quiet
+              gcloud compute disks delete $VM_NAME --zone="$ZONE_ID" --quiet
               
       - name: Step 3 - Use the Upload Artifact GitHub Action
         uses: actions/upload-artifact@v2
