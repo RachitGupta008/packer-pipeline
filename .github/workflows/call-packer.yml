@@ -1,7 +1,10 @@
 name: Call Packer
 on: 
   push:
-    paths: "gce/*"
+    paths: 
+      - ".github/workflows/packer.yml"
+      - "gce/*.hcl"
+      - "gce/*.sh"
 
 jobs:
   packer-build:
