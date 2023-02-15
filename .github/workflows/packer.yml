@@ -80,6 +80,10 @@ jobs:
               ZONE=$(cat packer-output.txt | sed -n 's/^.*started in //p')
               echo $VM_NAME
               echo $ZONE
+              REGION=${ZONE%-*}
+              ZONE=${ZONE#*-}
+              ZONE="${REGION}-${ZONE}"
+              echo $ZONE
               gcloud compute instances delete $VM_NAME --zone=$ZONE --quiet
               gcloud compute disks delete $VM_NAME --zone="${ZONE}" --quiet
               
