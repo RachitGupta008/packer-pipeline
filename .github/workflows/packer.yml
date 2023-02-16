@@ -79,6 +79,7 @@ jobs:
         run: |
               cd ${{ inputs.build-path }}
               ls -altr
+              cat packer-output.txt
               VM_NAME=$(cat packer-output.txt | sed -n 's/.*Instance: \([^ ]*\).*/\1/p')
               ZONE_ID=$(cat packer-output.txt | sed -n -e "s/^.*Loading zone: //p")
               echo $VM_NAME
@@ -92,4 +93,4 @@ jobs:
         if: cancelled()
         with: 
           name: logs
-          path: ${{ inputs.build-path }}/debug.logs 
+          path: ${{ inputs.build-path }}/packer-output.txt
