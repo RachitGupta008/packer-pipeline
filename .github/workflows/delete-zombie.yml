@@ -1,92 +1,38 @@
 name: Delete Zombie
 
-on:
-  
+on: [push]
+
 
 jobs:
   packer:
     runs-on: ubuntu-latest
-    name: Run Packer
+    name: Delete Zombie VMs
     steps:
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-         
-       
-      - name: Checkout
-        uses: actions/checkout@v3
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
 
-      - name: Setup `packer`
-        uses: hashicorp/setup-packer@main
-        id: setup
-        with:
-          version: "latest" # or `latest`
-          
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v1'
-        with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
-
-      - name: 'Use gcloud CLI'
-        run: |
-              gcloud version
-              gcloud components update --quiet
-              gcloud auth list
-              gcloud version
-      
-      - name: Configure Packer
-        run: |
-              ls -altr
-              echo "PACKER_LOG=1" >> $GITHUB_ENV
-              echo "PACKER_LOG_PATH=packer-output.txt" >> $GITHUB_ENV
-              ls /home/runner/work/packer-pipeline/ -altr
-      - name: Packer fmt
-        run: |
-              cd ${{ inputs.build-path }}
-              packer fmt -recursive .
-
-      - name: Run `packer init`
-        id: init
-        run: |
-              ls -altr
-              cd ${{ inputs.build-path }}
-              packer init ./image.pkr.hcl
+	  - name: List all VMs in the project
+      run: |
+        gcloud compute instances list > all_vms.txt
         
-      - name: BUILD
-        id: build
-        run: |
-              ls -altr
-              cd ${{ inputs.build-path }}
-              ls -altr
-              packer build -debug -timestamp-ui ./image.pkr.hcl
-               
+    - name: Identify the Packer VMs
+      run: |
+        grep "packer" all_vms.txt > packer_vms.txt
+    - name: Check disks for Packer VMs
+      run: |
+        while read -r line; do
+          instance_name=$(echo $line | cut -d ' ' -f1)
+          gcloud compute instances describe $instance_name > ${instance_name}_disks.txt
+        done < packer_vms.txt
+    - name: Delete zombie VMs and disks
+      run: |
+        while read -r line; do
+          instance_name=$(echo $line | cut -d ' ' -f1)
+          gcloud compute instances delete $instance_name --quiet
+        done < packer_vms.txt
         
-      - name: List Summanry
-        run: |
-              cd ${{ inputs.build-path }}
-              ls -altr
-              
-              IMG_NAME=$(cat packer-output.txt | sed -n -e "s/^.* A disk image was created: //p")
-              echo $IMG_NAME
-              echo "Image Created $IMG_NAME" >> $GITHUB_STEP_SUMMARY
-      - name: Cleanup
-        if: cancelled() # Check if the job has been cancelled
-        run: |
-              cd ${{ inputs.build-path }}
-              ls -altr
-              cat packer-output.txt
-              VM_NAME=$(cat packer-output.txt | sed -n 's/.*Instance: \([^ ]*\).*/\1/p')
-              ZONE_ID=$(cat packer-output.txt | sed -n -e "s/^.*Loading zone: //p")
-              echo $VM_NAME
-              echo GCP_PROJECT
-              gcloud compute instances delete $VM_NAME --zone=$ZONE_ID --quiet --verbosity=debug>>debug.logs
-              gcloud compute disks delete $VM_NAME --quiet --verbosity=debug>>debug.logs
-              cat debug.logs
-              
-      - name: Step 3 - Use the Upload Artifact GitHub Action
-        uses: actions/upload-artifact@v2
-        if: cancelled()
-        with: 
-          name: logs
-          path: ${{ inputs.build-path }}/packer-output.txt
