@@ -16,7 +16,7 @@ jobs:
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v1'
 
-	  - name: List all VMs in the project
+    - name: List all VMs in the project
       run: |
         gcloud compute instances list > all_vms.txt
         
