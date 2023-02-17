@@ -18,23 +18,7 @@ jobs:
 
     - name: List all VMs in the project
       run: |
-        gcloud compute instances list > all_vms.txt
+        gcloud compute instances list --format="table(name,zone,status,disks.deviceName,uptimeSeconds)" --filter="status=RUNNING AND uptimeSeconds>7200" > all_vms.txt
         cat all_vms.txt
         
-    - name: Identify the Packer VMs
-      run: |
-        grep "packer" all_vms.txt > packer_vms.txt
-        cat packer_vms.txt
-    - name: Check disks for Packer VMs
-      run: |
-        while read -r line; do
-          instance_name=$(echo $line | cut -d ' ' -f1)
-          gcloud compute instances describe $instance_name > ${instance_name}_disks.txt
-        done < packer_vms.txt
-    - name: Delete zombie VMs and disks
-      run: |
-        while read -r line; do
-          instance_name=$(echo $line | cut -d ' ' -f1)
-          gcloud compute instances delete $instance_name --quiet
-        done < packer_vms.txt
-        
+
