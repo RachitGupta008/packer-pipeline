@@ -1,7 +1,7 @@
 source "googlecompute" "packer-image" {
   project_id = "burner-racgupta1"
-  # source_image_family = "centos-7"
-  source_image = "rhel-7-v20220920"
+  source_image_family = "centos-7"
+  #source_image = "rhel-7-v20220920"
   ssh_timeout = "2m"
   # zone                = "us-central1-a"
   zone              = "us-central1-a"
