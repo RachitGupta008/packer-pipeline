@@ -19,10 +19,12 @@ jobs:
     - name: List all VMs in the project
       run: |
         gcloud compute instances list > all_vms.txt
+        cat all_vms.txt
         
     - name: Identify the Packer VMs
       run: |
         grep "packer" all_vms.txt > packer_vms.txt
+        cat packer_vms.txt
     - name: Check disks for Packer VMs
       run: |
         while read -r line; do
