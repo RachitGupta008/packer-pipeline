@@ -21,7 +21,10 @@ jobs:
         while read -r line; do
           instance_name=$(echo $line | cut -d ',' -f1)
           zone=$(echo $line | cut -d ',' -f2)
-          gcloud compute instances describe $instance_name --zone=zone
-        done < <(gcloud compute instances list --format="csv(name, zone)" --filter="name~'packer.*' AND status=RUNNING AND lastStartTimestamp<$(date -u -Iseconds -d '1 mins ago')" | tail -1)
+          echo $instance_name
+          echo $zone
+          
+          gcloud compute instances describe $instance_name --zone=$zone
+        done < <(gcloud compute instances list --format="csv(name, zone)" --filter="name~'packer.*' AND status=RUNNING AND lastStartTimestamp<$(date -u -Iseconds -d '1 mins ago')" | tail -n +2)
         
 
