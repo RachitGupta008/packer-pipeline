@@ -80,12 +80,15 @@ jobs:
               cd ${{ inputs.build-path }}
               ls -altr
               cat packer-output.txt
-              VM_NAME=$(cat packer-output.txt | sed -n 's/.*Instance: \([^ ]*\).*/\1/p')
-              ZONE=$(cat packer-output.txt | sed 's/.*started in \([^ ]*\).[0m*/\1/')
+              echo "sleeping.........."
+              sleep 1m
+              cat packer-output.txt
+              #VM_NAME=$(cat packer-output.txt | sed -n 's/.*Instance: \([^ ]*\).*/\1/p')
+              #ZONE=$(cat packer-output.txt | sed 's/.*started in \([^ ]*\).[0m*/\1/')
           
-              echo $VM_NAME
-              echo $ZONE
-              gcloud compute instances describe $VM_NAME --zone=$ZONE 
+              #echo $VM_NAME
+              #echo $ZONE
+              #gcloud compute instances describe $VM_NAME --zone=$ZONE 
               #gcloud compute disks delete $VM_NAME --quiet
               
               
