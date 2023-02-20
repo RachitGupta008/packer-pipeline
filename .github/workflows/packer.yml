@@ -82,7 +82,7 @@ jobs:
               ps aux | grep packer
               cat packer-output.txt
               echo "sleeping.........."
-              sleep 3m
+              #sleep 3m
               cat packer-output.txt
               ps aux | grep packer
               #VM_NAME=$(cat packer-output.txt | sed -n 's/.*Instance: \([^ ]*\).*/\1/p')
