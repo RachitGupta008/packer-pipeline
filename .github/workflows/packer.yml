@@ -81,7 +81,7 @@ jobs:
               ls -altr
               cat packer-output.txt
               echo "sleeping.........."
-              sleep 1m
+              sleep 3m
               cat packer-output.txt
               #VM_NAME=$(cat packer-output.txt | sed -n 's/.*Instance: \([^ ]*\).*/\1/p')
               #ZONE=$(cat packer-output.txt | sed 's/.*started in \([^ ]*\).[0m*/\1/')
