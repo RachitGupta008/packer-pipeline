@@ -20,7 +20,7 @@ jobs:
       run: |
         while read -r line; do
           instance_name=$(echo $line | cut -d ' ' -f1)
-          gcloud compute instances describe $instance_name > ${instance_name}_disks.txt
-        done < <(gcloud compute instances list --format="json(name)" --filter="name~'packer.*' AND status=RUNNING AND lastStartTimestamp<$(date -u -Iseconds -d '1 mins ago')")
+          gcloud compute instances list $instance_name > ${instance_name}_disks.txt
+        done < <(gcloud compute instances list --format="text(name)" --filter="name~'packer.*' AND status=RUNNING AND lastStartTimestamp<$(date -u -Iseconds -d '1 mins ago')")
         
 
