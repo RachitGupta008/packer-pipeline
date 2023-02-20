@@ -18,7 +18,9 @@ jobs:
 
     - name: List all VMs in the project
       run: |
-        gcloud compute instances list --format="table(name,zone,status,disks.deviceName,uptimeSeconds)" --filter="status=RUNNING AND uptimeSeconds>7200" > all_vms.txt
-        cat all_vms.txt
+        while read -r line; do
+          instance_name=$(echo $line | cut -d ' ' -f1)
+          gcloud compute instances describe $instance_name > ${instance_name}_disks.txt
+        done < <(gcloud compute instances list --format="json(name)" --filter="name~'packer.*' AND status=RUNNING AND lastStartTimestamp<$(date -u -Iseconds -d '1 mins ago')")
         
 
