@@ -19,8 +19,9 @@ jobs:
     - name: List all VMs in the project
       run: |
         while read -r line; do
-          echo $line
-          gcloud compute instances describe $line
-        done < <(gcloud compute instances list --format="value(name)" --filter="name~'packer.*' AND status=RUNNING AND lastStartTimestamp<$(date -u -Iseconds -d '1 mins ago')")
+          instance_name=$(echo $line | cut -d ',' -f1)
+          zone=$(echo $line | cut -d ',' -f2)
+          gcloud compute instances describe $instance_name --zone=zone
+        done < <(gcloud compute instances list --format="csv(name, zone)" --filter="name~'packer.*' AND status=RUNNING AND lastStartTimestamp<$(date -u -Iseconds -d '1 mins ago')" | tail -1)
         
 
