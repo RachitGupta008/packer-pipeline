@@ -64,6 +64,7 @@ jobs:
               cd ${{ inputs.build-path }}
               ls -altr
               packer build -debug -timestamp-ui ./image.pkr.hcl
+              export PACKER_PID=$!
                
         
       - name: List Summanry
@@ -80,6 +81,7 @@ jobs:
               cd ${{ inputs.build-path }}
               ls -altr
               ps aux | grep packer
+              kill $PACKER_PID INT
               cat packer-output.txt
               echo "sleeping.........."
               #sleep 3m
