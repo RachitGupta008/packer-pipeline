@@ -80,13 +80,13 @@ jobs:
         run: |
               cd ${{ inputs.build-path }}
               ls -altr
+              cat packer-output.txt
               ps -ef | grep packer
               PACKER_PID=$(ps -ef | grep "packer build -debug" | grep -v grep | awk '{print $2}')
               echo $PACKER_PID
               echo "packer process"
               
               kill -INT $PACKER_PID
-              cat packer-output.txt
               echo "sleeping.........."
               sleep 1m
               cat packer-output.txt
