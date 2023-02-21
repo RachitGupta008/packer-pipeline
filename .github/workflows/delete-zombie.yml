@@ -24,7 +24,8 @@ jobs:
           echo $instance_name
           echo $zone
           
-          gcloud compute instances describe $instance_name --zone=$zone
+          gcloud compute instances delete $instance_name --zone=$zone --quiet
+          gcloud compute disks delete $instance_name --zone=$zone --quiet
         done < <(gcloud compute instances list --format="csv(name, zone)" --filter="name~'packer.*' AND status=RUNNING AND lastStartTimestamp<$(date -u -Iseconds -d '1 mins ago')" | tail -n +2)
         
 
