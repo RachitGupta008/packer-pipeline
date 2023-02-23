@@ -63,7 +63,7 @@ jobs:
               ls -altr
               cd ${{ inputs.build-path }}
               ls -altr
-              packer build -debug -timestamp-ui commit_sha=$GITHUB_SHA ./image.pkr.hcl
+              packer build -debug -timestamp-ui --var commit_sha=$GITHUB_SHA ./image.pkr.hcl
               
                
         
