@@ -55,7 +55,7 @@ jobs:
         run: |
               ls -altr
               cd ${{ inputs.build-path }}
-              packer init ./image.pkr.hcl
+              packer init --var commit_sha=$GITHUB_SHA ./image.pkr.hcl
         
       - name: BUILD
         id: build
