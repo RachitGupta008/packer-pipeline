@@ -63,7 +63,7 @@ jobs:
               ls -altr
               cd ${{ inputs.build-path }}
               ls -altr
-              packer build -debug -timestamp-ui ./image.pkr.hcl
+              packer build -debug -timestamp-ui commit_sha=$GITHUB_SHA ./image.pkr.hcl
               
                
         
@@ -82,7 +82,7 @@ jobs:
               ls -altr
               cat packer-output.txt
               ps -ef | grep packer
-              PACKER_PID=$(ps -ef | grep "packer build -debug" | grep -v grep | awk '{print $2}')
+              PACKER_PID=$(ps -ef | grep "packer build -debug" | grep "commit_sha=$GITHUB_SHA" | grep -v grep | awk '{print $2}')
               echo $PACKER_PID
               echo "packer process"
               
