@@ -1,3 +1,7 @@
+variable "commit_sha" {
+  type =  string
+}
+
 source "googlecompute" "packer-image" {
   project_id = "burner-racgupta1"
   source_image_family = "centos-7"
