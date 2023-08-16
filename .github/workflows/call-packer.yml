@@ -4,6 +4,10 @@ on:
 
 jobs:
   packer-build:
+                  # Add "id-token" with the intended permissions.
+          permissions:
+            contents: 'read'
+            id-token: 'write'
           uses: RachitGupta008/packer-pipeline/.github/workflows/packer.yml@main
           with: 
               build-path: 'gce'

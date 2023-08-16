@@ -9,10 +9,7 @@ on:
 
 jobs:
   packer:
-        # Add "id-token" with the intended permissions.
-    permissions:
-      contents: 'read'
-      id-token: 'write'
+
     runs-on: ubuntu-latest
     name: Run Packer
     steps:
