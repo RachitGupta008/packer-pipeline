@@ -2,7 +2,7 @@ echo "Hello World"
 ls -altr
 
 
-full_end_time=$(( $(date +%s) + 5400 ))
+full_end_time=$(( $(date +%s) + 4200 ))
 while [ $(date +%s) -lt $full_end_time ]; do
     current_time=$(date +%s)
     end_time=$(( $current_time + 60 ))
