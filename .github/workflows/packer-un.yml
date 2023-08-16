@@ -40,3 +40,4 @@ jobs:
               gcloud components update --quiet
               gcloud auth list
               gcloud version
+              gcloud compute images list --no-standard-images

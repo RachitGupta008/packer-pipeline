@@ -1,6 +1,7 @@
 name: Delete Zombie
 
-on: [push]
+on: 
+  push: ["delete-zombie"]
 
 
 jobs:
