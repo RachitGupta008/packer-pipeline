@@ -30,7 +30,7 @@ jobs:
         uses: 'google-github-actions/auth@v1'
         with:
           workload_identity_provider: 'projects/487413294823/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-          service_account: 'test-packer@burner-racgupta1.iam.gserviceaccount.com'
+          service_account: 'wi-sa-packer@burner-racgupta1.iam.gserviceaccount.com'
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
@@ -41,7 +41,9 @@ jobs:
               gcloud components update --quiet
               gcloud auth list
               gcloud version
+              gcloud compute images list --no-standard-images --impersonate-service-account="test-packer@burner-racgupta1.iam.gserviceaccount.com"
               gcloud compute images list --no-standard-images
+              
       
       - name: Configure Packer
         run: |
