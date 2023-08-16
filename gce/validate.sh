@@ -10,10 +10,6 @@ while [ $(date +%s) -lt $full_end_time ]; do
     echo "time $(date +%s) : $full_end_time"
 
     while [ $(date +%s) -lt $end_time ]; do
-
-    done
-
-
-
-    
+        a=21
+    done   
 done
