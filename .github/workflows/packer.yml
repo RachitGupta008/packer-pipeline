@@ -9,6 +9,10 @@ on:
 
 jobs:
   packer:
+        # Add "id-token" with the intended permissions.
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     runs-on: ubuntu-latest
     name: Run Packer
     steps:
@@ -23,11 +27,13 @@ jobs:
         id: setup
         with:
           version: "latest" # or `latest`
-          
+    # Configure Workload Identity Federation via a credentials file.
       - id: 'auth'
+        name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          workload_identity_provider: 'projects/487413294823/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          service_account: 'test-packer@burner-racgupta1.iam.gserviceaccount.com'
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
