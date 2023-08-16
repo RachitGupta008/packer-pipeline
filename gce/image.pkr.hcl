@@ -2,6 +2,11 @@ variable "commit_sha" {
   type =  string
 }
 
+variable "impersonate-service-account" {
+  type =  string
+}
+
+
 source "googlecompute" "packer-image" {
   project_id = "burner-racgupta1"
   source_image_family = "centos-7"
@@ -15,6 +20,7 @@ source "googlecompute" "packer-image" {
   tags       = ["allow-packer-ssh"]
   subnetwork = "packer-network"
   on_host_maintenance = "TERMINATE"
+  impersonate_service_account= var.impersonate_service_account
 }
 
 
