@@ -41,9 +41,10 @@ jobs:
               gcloud components update --quiet
               gcloud auth list
               gcloud version
-              gcloud auth application-default login --impersonate-service-account test-packer@burner-racgupta1.iam.gserviceaccount.com  --quiet
-              gcloud compute images list --no-standard-images --impersonate-service-account="test-packer@burner-racgupta1.iam.gserviceaccount.com"
-              gcloud compute images list --no-standard-images
+              cat $GOOGLE_APPLICATION_CREDENTIALS
+              #gcloud auth application-default login --impersonate-service-account test-packer@burner-racgupta1.iam.gserviceaccount.com  --quiet
+              #gcloud compute images list --no-standard-images --impersonate-service-account="test-packer@burner-racgupta1.iam.gserviceaccount.com"
+              #gcloud compute images list --no-standard-images
               
       
       - name: Configure Packer
