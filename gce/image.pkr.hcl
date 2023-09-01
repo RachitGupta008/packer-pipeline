@@ -16,7 +16,6 @@ source "googlecompute" "packer-image" {
   zone              = "us-central1-a"
   image_description = "Created with Packer from Cloudbuild"
   ssh_username      = "racgupta1"
-  # tags                = ["packer", "packer-allow-ssh"]
   tags       = ["allow-packer-ssh"]
   subnetwork = "packer-network"
   on_host_maintenance = "TERMINATE"
