@@ -1,0 +1,12 @@
+name: Reusable Workflow
+on:
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: echo Hello, world!
