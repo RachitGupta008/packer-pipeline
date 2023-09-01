@@ -38,7 +38,6 @@ jobs:
               ls -altr
               echo "PACKER_LOG=1" >> $GITHUB_ENV
               echo "PACKER_LOG_PATH=packer-output.txt" >> $GITHUB_ENV
-              ls /home/runner/work/packer-pipeline/ -altr
       - name: Packer fmt
         run: |
               cd ${{ inputs.build-path }}
