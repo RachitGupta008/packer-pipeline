@@ -52,7 +52,7 @@ jobs:
               cd ${{ inputs.build-path }}
               ls -altr
               
-              packer build -debug -timestamp-ui --var commit_sha=$GITHUB_SHA --var impersonate-service-account="test-packer@burner-racgupta1.iam.gserviceaccount.com" ./image.pkr.hcl
+              packer build  -timestamp-ui --var commit_sha=$GITHUB_SHA --var impersonate-service-account="test-packer@burner-racgupta1.iam.gserviceaccount.com" ./image.pkr.hcl
               
                
         
