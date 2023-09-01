@@ -43,7 +43,7 @@ jobs:
         run: |
               ls -altr
               cd ${{ inputs.build-path }}
-              packer init --var commit_sha=$GITHUB_SHA --var impersonate-service-account="test-packer@burner-racgupta1.iam.gserviceaccount.com" ./image.pkr.hcl
+              #packer init --var commit_sha=$GITHUB_SHA --var impersonate-service-account="test-packer@burner-racgupta1.iam.gserviceaccount.com" ./image.pkr.hcl
         
       - name: BUILD
         id: build
