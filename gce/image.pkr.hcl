@@ -20,7 +20,7 @@ source "googlecompute" "packer-image" {
   tags       = ["allow-packer-ssh"]
   subnetwork = "packer-network"
   on_host_maintenance = "TERMINATE"
-  impersonate_service_account = var.impersonate-service-account
+  #impersonate_service_account = var.impersonate-service-account
   
 }
 

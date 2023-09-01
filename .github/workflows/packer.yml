@@ -10,12 +10,9 @@ on:
 jobs:
   packer:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Run Packer
     steps:
-
-         
-       
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -24,13 +21,7 @@ jobs:
         id: setup
         with:
           version: "latest" # or `latest`
-    # Configure Workload Identity Federation via a credentials file.
-      - id: 'auth'
-        name: 'Authenticate to Google Cloud'
-        uses: 'google-github-actions/auth@v1'
-        with:
-          workload_identity_provider: 'projects/487413294823/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-          service_account: 'wi-sa-packer@burner-racgupta1.iam.gserviceaccount.com'
+
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
@@ -40,12 +31,7 @@ jobs:
               gcloud version
               gcloud components update --quiet
               gcloud auth list
-              gcloud version
-              cat $GOOGLE_APPLICATION_CREDENTIALS
-              #gcloud auth application-default login --impersonate-service-account test-packer@burner-racgupta1.iam.gserviceaccount.com  --quiet
-              #gcloud compute images list --no-standard-images --impersonate-service-account="test-packer@burner-racgupta1.iam.gserviceaccount.com"
-              #gcloud compute images list --no-standard-images
-              
+
       
       - name: Configure Packer
         run: |
