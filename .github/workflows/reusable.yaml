@@ -1,6 +1,12 @@
 name: Reusable Workflow
 on:
   workflow_call:
+    inputs:
+      environment:
+        description: 'Environment for the job'
+        required: true
+        type: string
+
 
 jobs:
   test:
